@@ -1,10 +1,15 @@
 package com.itacademy.tasktest.entity;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
+    private static final Logger logger = LogManager.getLogger();
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -80,8 +85,10 @@ public class User {
         public static Role find(String str) {
             for (Role role :
                     Role.values()) {
-                if (role.toString().equals(str.toUpperCase()))
+                if (role.toString().equals(str.toUpperCase())) {
+                    logger.log(Level.INFO, "String '{}' was parsed to Role", str);
                     return role;
+                }
             }
             return Role.CUSTOMER_USER;
         }

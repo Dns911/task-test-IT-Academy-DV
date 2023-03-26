@@ -2,6 +2,7 @@ package com.itacademy.tasktest.controller;
 
 import com.itacademy.tasktest.entity.User;
 import com.itacademy.tasktest.repository.UserRepository;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,8 +68,10 @@ public class UsersController {
             Model model) {
         User.Role role = User.Role.find(userRole);
         User user = new User(userName, userLastname, userFatherName, userEmail, role);
+        logger.log(Level.INFO, "User was created!");
         model.addAttribute("title", "User was added success!");
         userRepository.save(user);
+        logger.log(Level.INFO, "User was added!");
         return new RedirectView("home").getUrl();
     }
 }
